@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+:root {
+  /* Light theme: warm off-white (cream), with softly tinted cards instead of pure white */
+  --background: #f5f2ec;
+  --foreground: #1a1a1f;
+  --muted: #62626d;
+  --line: #e0dbd0;
+  --card: #fbf9f4;
+  --accent: #d63f45; /* coral */
+  --accent-2: #6e56cf; /* violet */
+  --accent-soft: #f7e4dd;
+  color-scheme: light;
+}
+
+/* Dark theme: used when the visitor's device prefers dark, or after they press the header toggle */
+:root[data-theme="dark"] {
+  --background: #0e0e12;
+  --foreground: #f2f1ee;
+  --muted: #9a9aa6;
+  --line: #26262e;
+  --card: #15151b;
+  --accent: #ff6b6f;
+  --accent-2: #9d8bf0;
+  --accent-soft: #2a1819;
+  color-scheme: dark;
+}
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-card: var(--card);
+  --color-accent: var(--accent);
+  --color-accent2: var(--accent-2);
+  --color-accentsoft: var(--accent-soft);
+  --font-sans: "Inter Variable", system-ui, sans-serif;
+  --font-serif: "Fraunces Variable", Georgia, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Inter Variable", system-ui, sans-serif;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.gradient-bar {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+}
+
+::selection {
+  background: var(--accent-2);
+  color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Styles for markdown articles hosted on the site */
+.prose-lite {
+  font-size: 1.0625rem;
+  line-height: 1.8;
+}
+.prose-lite > * + * {
+  margin-top: 1.25em;
+}
+.prose-lite h2 {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  line-height: 1.25;
+  margin-top: 2.2em;
+}
+.prose-lite h3 {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  margin-top: 1.8em;
+}
+.prose-lite a {
+  color: var(--accent-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-lite ul,
+.prose-lite ol {
+  padding-left: 1.4em;
+}
+.prose-lite ul {
+  list-style: disc;
+}
+.prose-lite ol {
+  list-style: decimal;
+}
+.prose-lite li + li {
+  margin-top: 0.4em;
+}
+.prose-lite blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 1em;
+  color: var(--muted);
+}
+.prose-lite code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.9em;
+  background: var(--accent-soft);
+  padding: 0.15em 0.4em;
+  border-radius: 0.35em;
+}
+.prose-lite pre {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+}
+.prose-lite pre code {
+  background: none;
+  padding: 0;
+}
+.prose-lite img {
+  border-radius: 1rem;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Rich text editor (admin) */
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: var(--muted);
+  opacity: 0.6;
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+.ProseMirror img.ProseMirror-selectednode {
+  outline: 3px solid var(--accent-2);
+}
+.ProseMirror pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
